@@ -3,10 +3,10 @@ import { getWalkers } from "./database.js"; //fix here
 const walkers = getWalkers();
 
 document.addEventListener("click", (theClickEvent) => {
-  const whatWhatClickOn = theClickEvent.target;
+  const whatWasClickedOn = theClickEvent.target;
 
-  if (whatWhatClickOn.dataset.type === "walker")
-    window.alert(`This walker works in ${whatWhatClickOn.dataset.city}`);
+  if (whatWasClickedOn.dataset.type === "walker")
+    window.alert(`This walker works in ${whatWasClickedOn.dataset.city}`);
 });
 
 export const Walkers = () => {

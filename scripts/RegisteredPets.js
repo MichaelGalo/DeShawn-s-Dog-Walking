@@ -1,15 +1,18 @@
-import { getPets } from "./database.js";
+import { getPets, getWalkers } from "./database.js";
 
 const pets = getPets();
 
-// below is boiler plate code for adding the click event
+document.addEventListener("click", (theClickEvent) => {
+  const whatWasClickedOn = theClickEvent.target;
+  const walkerID = whatWasClickedOn.dataset.walkerforeignkey;
+  const allWalkers = getWalkers();
 
-// document.addEventListener("click", (theClickEvent) => {
-//   const whatWhatClickOn = theClickEvent.target;
-
-//   if (whatWhatClickOn.dataset.type === "walker")
-//     window.alert(`This pet is walked by ${whatWhatClickOn.dataset.city}`);
-// });
+  for (const walker of allWalkers) {
+    if (walker.id === parseInt(walkerID)) {
+      window.alert(`This pet is being walked by ${walker.name}`);
+    }
+  }
+});
 
 export const RegisteredPets = () => {
   let petHTML = "<ul>";
