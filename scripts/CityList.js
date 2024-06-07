@@ -1,22 +1,31 @@
-import { getWalkers } from "./database.js";
+import { getCities, getWalkers } from "./database.js";
 
 const walkers = getWalkers();
+const cities = getCities();
 
 document.addEventListener("click", (clickEvent) => {
   const cityTarget = clickEvent.target;
+
   if (cityTarget.dataset.type === "city") {
     window.alert(`${cityTarget.dataset.walkername} is servicing this city.`);
   }
 });
 
 export const CityList = () => {
-  let citiesHTML = "<ul>"; // 2nd fix
+  const uniqueCityIds = new Set();
+  let citiesHTML = "<ul>";
 
   for (const walker of walkers) {
-    citiesHTML += `<li data-type="city" data-walkername="${walker.name}">${walker.city}</li>`;
+    if (!uniqueCityIds.has(walker.cityId)) {
+      uniqueCityIds.add(walker.cityId);
+
+      const cityName = cities.find((city) => city.id === walker.cityId)?.name;
+
+      citiesHTML += `<li data-type="city" data-cityforeignkey="${walker.cityId}" data-walkername="${walker.name}">${cityName}</li>`;
+    }
   }
 
-  citiesHTML += "</ul>"; //maybe 3rd fix
+  citiesHTML += "</ul>";
 
-  return citiesHTML; // 1 fix
+  return citiesHTML;
 };
